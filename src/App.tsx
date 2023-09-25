@@ -3,16 +3,23 @@ import Categories from "./components/Categories";
 import { useState } from "react";
 import { Category } from "./hooks/useCategories";
 import NavBar from "./components/NavBar";
+import Main from "./components/Main";
+import { iniTCategory } from "./data/initCategory";
+
+export interface ImagesQuery {
+  category: Category;
+}
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState<Category>(
-    {} as Category
-  );
+  const [imagesQuery, setImagesQuery] = useState<ImagesQuery>({
+    category: iniTCategory,
+  } as ImagesQuery);
 
   return (
     <Grid
       templateAreas={`"header header"
                       "nav main"`}
+      gridTemplateColumns={"200px 1fr"}
     >
       <GridItem area={"header"} padding={4}>
         <NavBar />
@@ -20,13 +27,15 @@ function App() {
 
       <GridItem area={"nav"} padding={4}>
         <Categories
-          onSelectCategory={(category) => setSelectedCategory(category)}
-          selectedCategory={selectedCategory}
+          onSelectCategory={(category) =>
+            setImagesQuery({ ...imagesQuery, category: category })
+          }
+          selectedCategory={imagesQuery.category}
         />
       </GridItem>
 
-      <GridItem bg="green.300" area={"main"}>
-        Main
+      <GridItem area={"main"} padding={4}>
+        <Main imagesQuery={imagesQuery} />
       </GridItem>
     </Grid>
   );

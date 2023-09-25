@@ -1,6 +1,5 @@
 import {
   Badge,
-  Box,
   Button,
   HStack,
   Heading,
