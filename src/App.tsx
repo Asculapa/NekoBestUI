@@ -2,6 +2,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import Categories from "./components/Categories";
 import { useState } from "react";
 import { Category } from "./hooks/useCategories";
+import NavBar from "./components/NavBar";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState<Category>(
@@ -13,11 +14,11 @@ function App() {
       templateAreas={`"header header"
                       "nav main"`}
     >
-      <GridItem bg="blue.300" area={"header"}>
-        Header
+      <GridItem area={"header"} padding={4}>
+        <NavBar />
       </GridItem>
 
-      <GridItem area={"nav"}>
+      <GridItem area={"nav"} padding={4}>
         <Categories
           onSelectCategory={(category) => setSelectedCategory(category)}
           selectedCategory={selectedCategory}

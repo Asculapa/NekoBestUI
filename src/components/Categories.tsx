@@ -1,4 +1,12 @@
-import { Badge, Button, HStack, List, ListItem } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Button,
+  HStack,
+  Heading,
+  List,
+  ListItem,
+} from "@chakra-ui/react";
 import { Category, useCategories } from "../hooks/useCategories";
 import { useEffect, useState } from "react";
 import { capitalizeFirstLowercaseRest } from "../helpers/capitalizer";
@@ -25,26 +33,31 @@ const Categories = ({ onSelectCategory, selectedCategory }: Props) => {
   }, []);
 
   return (
-    <List marginStart={4} spacing={2}>
-      {categories.map((category) => (
-        <ListItem key={category.name}>
-          <HStack>
-            <Button
-              variant="link"
-              whiteSpace="normal"
-              justifyContent="flex-start"
-              fontWeight={
-                selectedCategory?.name === category.name ? "bold" : "normal"
-              }
-              onClick={() => onSelectCategory(category)}
-            >
-              {capitalizeFirstLowercaseRest(category.name)}
-            </Button>
-            <Badge textColor={"gray.400"}>{category.format}</Badge>
-          </HStack>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      <Heading as="h3" size="lg">
+        Category
+      </Heading>
+      <List spacing={2} marginTop={3}>
+        {categories.map((category) => (
+          <ListItem key={category.name}>
+            <HStack>
+              <Button
+                variant="link"
+                whiteSpace="normal"
+                justifyContent="flex-start"
+                fontWeight={
+                  selectedCategory?.name === category.name ? "bold" : "normal"
+                }
+                onClick={() => onSelectCategory(category)}
+              >
+                {capitalizeFirstLowercaseRest(category.name)}
+              </Button>
+              <Badge textColor={"gray.400"}>{category.format}</Badge>
+            </HStack>
+          </ListItem>
+        ))}
+      </List>
+    </>
   );
 };
 
