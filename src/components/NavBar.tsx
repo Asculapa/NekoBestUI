@@ -1,13 +1,19 @@
 import neko from "../assets/neko.jpg";
 import SearchInput from "./SearchInput";
 import DarkModeSwitch from "./DarkModeSwitch";
-import { HStack, Image } from "@chakra-ui/react";
+import { Box, HStack, Image } from "@chakra-ui/react";
 
-const NavBar = () => {
+interface Props {
+  onSearch: (searchText: string) => void;
+}
+
+const NavBar = ({ onSearch }: Props) => {
   return (
     <HStack>
       <Image src={neko} boxSize="64px" />
-      <SearchInput />
+      <Box width="100%" marginX={5}>
+        <SearchInput onSearch={onSearch} />
+      </Box>
       <DarkModeSwitch />
     </HStack>
   );

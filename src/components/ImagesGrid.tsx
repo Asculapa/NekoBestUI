@@ -1,4 +1,4 @@
-import { SimpleGrid, Image } from "@chakra-ui/react";
+import { SimpleGrid, Image, Text } from "@chakra-ui/react";
 import { ImagesQuery } from "../App";
 import { useEffect, useState } from "react";
 import { useImages } from "../hooks/useImages";
@@ -7,7 +7,7 @@ interface Image {
   url: string;
 }
 
-const Main = ({ imagesQuery }: { imagesQuery: ImagesQuery }) => {
+const ImagesGrid = ({ imagesQuery }: { imagesQuery: ImagesQuery }) => {
   const [images, setImages] = useState<Image[]>([]);
 
   useEffect(() => {
@@ -17,13 +17,15 @@ const Main = ({ imagesQuery }: { imagesQuery: ImagesQuery }) => {
     });
   }, [imagesQuery]);
 
+  if (images.length == 0) return <Text align="center">{"Not Found :("}</Text>;
+
   return (
     <SimpleGrid columns={4} spacing={3} alignItems="center">
       {images.map((image) => (
-        <Image src={image.url} borderRadius={10} />
+        <Image key={image.url} src={image.url} borderRadius={10} />
       ))}
     </SimpleGrid>
   );
 };
 
-export default Main;
+export default ImagesGrid;

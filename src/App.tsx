@@ -3,11 +3,12 @@ import Categories from "./components/Categories";
 import { useState } from "react";
 import { Category } from "./hooks/useCategories";
 import NavBar from "./components/NavBar";
-import Main from "./components/Main";
+import ImagesGrid from "./components/ImagesGrid";
 import { iniTCategory } from "./data/initCategory";
 
 export interface ImagesQuery {
   category: Category;
+  query: string;
 }
 
 function App() {
@@ -22,7 +23,11 @@ function App() {
       gridTemplateColumns={"200px 1fr"}
     >
       <GridItem area={"header"} padding={4}>
-        <NavBar />
+        <NavBar
+          onSearch={(searchText) =>
+            setImagesQuery({ ...imagesQuery, query: searchText })
+          }
+        />
       </GridItem>
 
       <GridItem area={"nav"} padding={4}>
@@ -35,7 +40,7 @@ function App() {
       </GridItem>
 
       <GridItem area={"main"} padding={4}>
-        <Main imagesQuery={imagesQuery} />
+        <ImagesGrid imagesQuery={imagesQuery} />
       </GridItem>
     </Grid>
   );

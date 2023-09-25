@@ -1,14 +1,28 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { useRef } from "react";
 
-const SearchInput = () => {
+interface Props {
+  onSearch: (searchText: string) => void;
+}
+
+const SearchInput = ({ onSearch }: Props) => {
+  const ref = useRef<HTMLInputElement>(null);
+
   return (
-    <InputGroup marginX={5}>
-      <InputLeftElement pointerEvents="none">
-        <SearchIcon />
-      </InputLeftElement>
-      <Input borderRadius={20} />
-    </InputGroup>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        onSearch(ref.current?.value || "");
+      }}
+    >
+      <InputGroup>
+        <InputLeftElement pointerEvents="none">
+          <SearchIcon />
+        </InputLeftElement>
+        <Input ref={ref} borderRadius={20} />
+      </InputGroup>
+    </form>
   );
 };
 
