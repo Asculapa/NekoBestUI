@@ -20,7 +20,11 @@ const ImagesGrid = ({ imagesQuery }: { imagesQuery: ImagesQuery }) => {
   if (images.length == 0) return <Text align="center">{"Not Found :("}</Text>;
 
   return (
-    <SimpleGrid columns={4} spacing={3} alignItems="center">
+    <SimpleGrid
+      columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+      spacing={3}
+      alignItems="center"
+    >
       {images.map((image) => (
         <Image key={image.url} src={image.url} borderRadius={10} />
       ))}

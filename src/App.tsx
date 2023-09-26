@@ -1,4 +1,4 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, Show } from "@chakra-ui/react";
 import Categories from "./components/Categories";
 import { useState } from "react";
 import { Category } from "./hooks/useCategories";
@@ -18,9 +18,12 @@ function App() {
 
   return (
     <Grid
-      templateAreas={`"header header"
-                      "nav main"`}
-      gridTemplateColumns={"200px 1fr"}
+      templateAreas={{
+        lg: `"header header"
+            "nav main"`,
+        base: `"header" "main"`,
+      }}
+      templateColumns={{ base: "1fr", lg: "200px 1fr" }}
     >
       <GridItem area={"header"} padding={4}>
         <NavBar
@@ -30,14 +33,16 @@ function App() {
         />
       </GridItem>
 
-      <GridItem area={"nav"} padding={4}>
-        <Categories
-          onSelectCategory={(category) =>
-            setImagesQuery({ ...imagesQuery, category: category })
-          }
-          selectedCategory={imagesQuery.category}
-        />
-      </GridItem>
+      <Show above="lg">
+        <GridItem area={"nav"} padding={4}>
+          <Categories
+            onSelectCategory={(category) =>
+              setImagesQuery({ ...imagesQuery, category: category })
+            }
+            selectedCategory={imagesQuery.category}
+          />
+        </GridItem>
+      </Show>
 
       <GridItem area={"main"} padding={4}>
         <ImagesGrid imagesQuery={imagesQuery} />
