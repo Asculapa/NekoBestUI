@@ -3,6 +3,7 @@ import axios from "axios";
 export interface Category {
   name: string;
   format: string;
+  amount: number;
 }
 
 export const useCategories = () => {

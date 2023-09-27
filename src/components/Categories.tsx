@@ -1,10 +1,12 @@
 import {
   Badge,
+  Box,
   Button,
   HStack,
   Heading,
   List,
   ListItem,
+  Text,
 } from "@chakra-ui/react";
 import { Category, useCategories } from "../hooks/useCategories";
 import { useEffect, useState } from "react";
@@ -26,6 +28,7 @@ const Categories = ({ onSelectCategory, selectedCategory }: Props) => {
           .map((key) => ({
             name: key,
             format: response.data[key].format,
+            amount: parseInt(response.data[key].max),
           }))
       );
     });
@@ -40,17 +43,23 @@ const Categories = ({ onSelectCategory, selectedCategory }: Props) => {
         {categories.map((category) => (
           <ListItem key={category.name}>
             <HStack>
-              <Button
-                variant="link"
-                whiteSpace="normal"
-                justifyContent="flex-start"
-                fontWeight={
-                  selectedCategory?.name === category.name ? "bold" : "normal"
-                }
-                onClick={() => onSelectCategory(category)}
-              >
-                {capitalizeFirstLowercaseRest(category.name)}
-              </Button>
+              <Box display="flex" flexDirection="row">
+                <Button
+                  variant="link"
+                  whiteSpace="normal"
+                  justifyContent="flex-start"
+                  display="contents"
+                  fontWeight={
+                    selectedCategory?.name === category.name ? "bold" : "normal"
+                  }
+                  onClick={() => onSelectCategory(category)}
+                >
+                  {capitalizeFirstLowercaseRest(category.name)}
+                </Button>
+                <Text fontSize="12px" textColor={"gray.500"} marginLeft={1}>
+                  {category.amount}
+                </Text>
+              </Box>
               <Badge textColor={"gray.400"}>{category.format}</Badge>
             </HStack>
           </ListItem>

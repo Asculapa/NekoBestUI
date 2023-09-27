@@ -26,7 +26,12 @@ const ImagesGrid = ({ imagesQuery }: { imagesQuery: ImagesQuery }) => {
       alignItems="center"
     >
       {images.map((image) => (
-        <Image key={image.url} src={image.url} borderRadius={10} />
+        <Image
+          key={image.url}
+          src={image.url}
+          borderRadius={10}
+          cursor={"pointer"}
+        />
       ))}
     </SimpleGrid>
   );
